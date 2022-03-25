@@ -78,6 +78,13 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+
+calcDisplayBalance(account1.movements);
+
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
@@ -89,6 +96,7 @@ const createUsernames = function (accs) {
 };
 
 createUsernames(accounts);
+
 console.log(accounts);
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -113,8 +121,16 @@ console.log(movementsDescriptions);
 const deposits = movements.filter(function (mov) {
   return mov > 0;
 });
-console.log(movements);
-console.log(deposits);
+console.log(`movements: ${movements}`);
+//accumulator -> snowball effect
+const balance = movements.reduce((acc, cur) => acc + cur, 0);
+console.log(balance);
+
+let balance2 = 0;
+for (const mov of movements) balance2 += mov;
+console.log(balance2);
+
+console.log(`deposits: ${deposits}`);
 
 const depositsFor = [];
 for (const mov of movements) if (mov > 0) depositsFor.push(mov);
