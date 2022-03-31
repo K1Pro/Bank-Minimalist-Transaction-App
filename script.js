@@ -61,9 +61,12 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function (mov, i) {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
       <div class="movements__row">
@@ -205,7 +208,25 @@ btnClose.addEventListener('click', function (e) {
 
 // console.log(accounts);
 
+let sorted = false;
+
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
+
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const owners = ['Bartosz', 'Joanna', 'Hanna', 'Marcin'];
+console.log(owners.sort());
+
+console.log(movements);
+// console.log(movements.sort());
+//return < 0, A, B
+//return > 0, B, A
+movements.sort((a, b) => a - b);
+console.log(movements);
 
 // const eurToUsd = 1.1;
 // const movementsUSD = movements.map(mov => mov * eurToUsd);
